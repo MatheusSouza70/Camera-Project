@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "camera",
-    "slug": "camera",
+    "name": "camera-project",
+    "slug": "camera-project",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

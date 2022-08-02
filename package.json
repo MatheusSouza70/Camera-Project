@@ -1,5 +1,5 @@
 {
-  "name": "camera",
+  "name": "camera-project",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -12,6 +12,9 @@
   "dependencies": {
     "expo": "~45.0.0",
     "expo-camera": "~12.2.0",
+    "expo-location": "~14.2.2",
+    "expo-media-library": "~14.1.0",
+    "expo-permissions": "~13.2.0",
     "expo-status-bar": "~1.3.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
