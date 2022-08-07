@@ -14,7 +14,7 @@
   <h3 align="center">Camera Project</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    Repositório do projeto feito utilizando a câmera em React Native
     <br />
     <a href="https://docs.expo.dev/versions/latest/sdk/camera/"><strong>Veja a documentação »</strong></a>
     <br />
