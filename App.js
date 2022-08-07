@@ -1,17 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, SafeAreaView, TouchableOpacity, Image, View, Modal} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  View,
+  Modal,
+} from "react-native";
 import { Camera } from "expo-camera";
 import { FontAwesome } from "@expo/vector-icons";
-import * as Permissions from "expo-permissions"
+import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
-
+import { Ionicons } from "@expo/vector-icons";
+import * as Sharing from "expo-sharing";
+import Constants from "expo-constants";
 
 export default function App() {
   const camRef = useRef(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
   const [hasPermission, setHaspermission] = useState(null);
   const [capturedPhoto, setcapturedPhoto] = useState(null);
   const [open, setOpen] = useState(false);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.torch);
 
   useEffect(() => {
     (async () => {
@@ -31,7 +42,7 @@ export default function App() {
 
   if (hasPermission === false) return <Text>Acesso negado!</Text>;
 
-  async function takePicture(){
+  async function takePicture() {
     if (camRef) {
       const data = await camRef.current.takePictureAsync();
       setcapturedPhoto(data.uri);
@@ -45,14 +56,25 @@ export default function App() {
       .then(() => {
         alert("Foto salva com sucesso!");
       })
-      .catch((error) => {
-        console.log("err", error);
-      });
+      .catch((error) => console.log(error));
   }
+
+  const onShare = async () => {
+    await Sharing.shareAsync(capturedPhoto);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Camera style={{ flex: 1 }} type={type} ref={camRef}>
+      <View style={styles.topBar}>
+        <Text style={{ color: "black", top: 80, fontSize: 34 }}> DevCam</Text>
+      </View>
+      <Camera
+        style={{ flex: 1 }}
+        type={type}
+        ref={camRef}
+        flashMode={flashMode}
+        whiteBalance={this.state?.whiteBalance}
+      >
         <View
           style={{
             flex: 1,
@@ -61,7 +83,7 @@ export default function App() {
           }}
         >
           <TouchableOpacity
-            style={{ position: "absolute", bottom: 20, left: 20 }}
+            style={{ position: "absolute", bottom: 200, left: 20 }}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -70,17 +92,29 @@ export default function App() {
               );
             }}
           >
-            <Text style={{ fontSize: 20, marginBottom: 13, color: "#FFF" }}>
-              Trocar
-            </Text>
+            <Ionicons name="ios-camera-reverse" size={43} color="white" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ position: "absolute", bottom: 40, left: 20 }}
+            onPress={() => setFlashMode(Camera.Constants.FlashMode.torch)}
+          >
+            <Ionicons name="flash" size={43} color="#FFF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ position: "absolute", bottom: 120, left: 20 }}
+            onPress={() => setFlashMode(Camera.Constants.FlashMode.off)}
+          >
+            <Ionicons name="flash-off" size={43} color="#FFF" />
           </TouchableOpacity>
         </View>
       </Camera>
       <TouchableOpacity style={styles.button} onPress={takePicture}>
-        <FontAwesome name="camera" size={23} color="#FFF" />
+        <FontAwesome name="camera" size={23} color="#333" />
       </TouchableOpacity>
 
-      {capturedPhoto && 
+      {capturedPhoto && (
         <Modal animationType="slide" transparent={false} visible={open}>
           <View
             style={{
@@ -95,11 +129,15 @@ export default function App() {
                 style={{ margin: 10 }}
                 onPress={() => setOpen(false)}
               >
-                <FontAwesome name="window-close" size={50} color="#FF0000" />
+                <FontAwesome name="window-close" size={50} color="#121212" />
               </TouchableOpacity>
 
               <TouchableOpacity style={{ margin: 10 }} onPress={savePicture}>
                 <FontAwesome name="upload" size={50} color="#121212" />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{ margin: 10 }} onPress={onShare}>
+                <FontAwesome name="share" size={50} color="#121212" />
               </TouchableOpacity>
             </View>
 
@@ -109,7 +147,7 @@ export default function App() {
             />
           </View>
         </Modal>
-      }
+      )}
     </SafeAreaView>
   );
 }
@@ -122,9 +160,17 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#121212",
-    margin: 20,
-    borderRadius: 10,
-    height: 50,
+    backgroundColor: "white",
+    margin: 30,
+    borderRadius: 30,
+    height: 70,
+  },
+  topBar: {
+    flex: 0.2,
+    backgroundColor: "white",
+    color: "black",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: Constants.statusBarHeight / 2,
   },
 });
