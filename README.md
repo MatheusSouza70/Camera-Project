@@ -97,8 +97,9 @@ Um pequeno exemplo de como iniciar nosso projeto.
 ### Pré-requisitos
 
 * node
+  ```sh
   Instale-o aqui -> (https://nodejs.org/en/)
-
+  ```
 * npm
   Execute o comando no terminal:
   ```sh
