@@ -213,7 +213,7 @@ Link do Projeto: [https://github.com/MatheusSouza70/Camera-Project](https://gith
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
 [issues-url]: https://github.com/MatheusSouza70/CRUD-Produtos/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/MatheusSouza70/CRUD-Produtos/blob/main/LICENSE
+[license-url]: https://github.com/MatheusSouza70/Camera-Project/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://br.linkedin.com/in/matheus-dutra-souza-02141221a
 [product-screenshot]: https://media.discordapp.net/attachments/704805407906070581/983185875007602728/unknown.png?width=590&height=480
